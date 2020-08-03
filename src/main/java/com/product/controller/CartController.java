@@ -66,6 +66,7 @@ public class CartController {
 		
 		if (pros == null) {
 			pros = new ArrayList<>();
+			
 			request.getSession().setAttribute("MY_PROS", pros);
 		}
 		pros.add(pro);
