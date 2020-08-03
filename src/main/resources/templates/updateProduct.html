@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<nav>
+<a href="/">home</a> <a href="/category">Categories</a> <a href="/subcategory">Sub-Categories</a>
+<a href="/formProduct">Products</a>
+</nav>
+<h2>List Of Products</h2>
+
+	<form th:action="@{/updateProduct}" th:object="${product}" method="post">
+	
+	<pre>
+	
+	Product Id:      :  <input type="text" th:field="*{productId}">
+	
+	Product Name     :  <input type="text" th:field="*{productName}">                   Company Name           :  <input type="text" th:field="*{companyName}">
+	
+	Product Category :   <select th:field="*{productCat}">
+                         <option value=""> --SELECT--- </option>
+                         <option th:each="cat : ${categories}"
+                            th:value="${cat.productCategory}"
+                            th:text="${cat.productCategory}"/>
+                  </select>                            Product Sub Category   :       <select th:field="*{productSubCat}">
+                                                                      <option value=""> --SELECT--- </option>
+                                                                                   <option th:each="subCat : ${subCategories}"
+                                                                         th:value="${subCat.productCategory}"
+                                                                        th:text="${subCat.productCategory}"/>
+                                                                       </select>
+	
+	Product Image    :  <input type="file" th:field="*{productImage}">                   Specification          :  <input type="text" th:field="*{specification}">
+	
+	SKU Code         :  <input type="text" th:field="*{skuCode}">                   Weight                 :  <input type="text" th:field="*{weight}">
+	
+	Price            :  <input type="text" th:field="*{price}">                   Product Type           :  <input type="text" th:field="*{productType}">
+	
+	Recipe           :  <input type="text" th:field="*{recipe}">                   Nutrition Information  :  <input type="text" th:field="*{nutritionInformation}">
+	
+	                            <button>Update</button>                    <button><a style="text-decoration: none;" href="/formProduct">Reset</a></button>
+	</pre>
+	
+	</form>
+	
+	<table border="1">
+	
+	<thead>
+	<tr>
+	<th>Sr.No</th>
+	<th>P Name</th>
+	<th>P Category</th>
+	<th>SKU Code</th>
+	<th>Weight</th>
+	<th>Price</th>
+	<th>Action</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	<tr th:if="${products.empty}">
+				<td colspan="4"><span style="color:red">No products available</span></td>
+			</tr>
+			
+			<tr th:each="product,prodStatus : ${products}">
+			<td th:text="${prodStatus.index+1}"></td>
+			<td th:text="${product.productName}"></td>
+			<td th:text="${product.productCat}"></td>
+			<td th:text="${product.skuCode}"></td>
+			<td th:text="${product.weight}"></td>
+			<td th:text="${product.price}"></td>
+			<td>
+			<a th:href="@{/updateProduct/{id}(id=${product.productId})}">Update</a>/
+			<a th:href="@{/deleteProduct/{id}(id=${product.productId})}">Delete</a></td>
+			</tr>
+	
+	</tbody>
+	
+	</table>
+</body>
+</html>

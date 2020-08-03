@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+  $("#country").change(function(){
+   // alert("hiii country");
+    var countryId = $(this).val();
+    //alert(countryId);
+    $.ajax({
+		type: 'GET',
+		url: '/getStates/' + countryId,
+		success: function(result) {
+			//alert("successed..");
+			//alert(result[0].productSubCat)
+			
+			var s = '<option value=""> --SELECT--- </option>';
+			for(var i = 0; i < result.length; i++) {
+				s += '<option value="' + result[i].stateId + '">' + result[i].name + '</option>';
+			}
+			
+			//alert(s);
+			$('#state').html(s);
+			
+		}
+    });
+    
+  });
+  
+  $("#state").change(function(){
+	    //alert("hiii state");
+	    var stateId = $(this).val();
+	   // alert(stateId);
+	    $.ajax({
+			type: 'GET',
+			url: '/getCities/' + stateId,
+			success: function(result) {
+				//alert("successed..");
+				//alert(result[0].productSubCat)
+				
+				var s = '<option value=""> --SELECT--- </option>';
+				for(var i = 0; i < result.length; i++) {
+					s += '<option value="' + result[i].cityId + '">' + result[i].name + '</option>';
+				}
+				
+				//alert(s);
+				$('#city').html(s);
+				
+			}
+	    });
+	    
+	  });  
+
+});
+</script>
+
+</head>
+<body>
+
+<h3 >Hello, <span th:text="${user}"></span></h3>
+
+<h2 style="color:red;">please Select Some address</h2>
+
+			<div th:if="${ads.empty}">
+				<p colspan="4"><span style="color:red">No address available</span></p>
+				<hr>
+			</div>
+			<div align="center" th:each="cat,catStatus : ${ads}">
+				<p style="color:red;">address is <span th:text="${catStatus.index+1}"></span></p>
+				<p>H.No : <span th:text="${cat.address}"></span></p>
+				<p>Land mark :  <span th:text="${cat.landmark}"></span></p>
+				<p>Pin code : <span th:text="${cat.pincode}"></span></p>
+				
+				<button style="color: blue;"><a style="text-decoration: none;" href="/buy">Deliver to this address</a></button>
+				
+				<hr style="width:20%;text-align:center;">
+			
+			</div>
+
+<h2 style="color:red;">please enter your Address for Delivery</h2>
+
+
+<form th:action="@{/newaddress}" th:object="${add}" method="post" align="center">
+		<pre>
+	Contact No :   <input type="text" th:field="*{contactNo}">
+	
+	Address : <input type="text" th:field="*{address}">
+	
+	Landmark : <input type="text" th:field="*{landmark}">
+	
+	Country : <select th:field="*{countryId}" id="country">
+                         <option value=""> --SELECT--- </option>
+                         <option th:each="cat : ${countries}"
+                            th:value="${cat.countryId}"
+                            th:text="${cat.name}"/>
+                  </select>   
+	
+	State : <select th:field="*{stateId}" id="state">
+                         <option value=""> --SELECT--- </option>
+                  </select>
+	
+	City :	<select th:field="*{cityId}" id="city">
+                         <option value=""> --SELECT--- </option>
+                  </select>
+	
+	Pincode   :  <input type="text" th:field="*{pincode}">
+	
+	     
+	
+	
+	    <button style="color: blue;">Deliver to this address</button>
+	
+	</pre>
+	</form>
+
+</body>
+</html>

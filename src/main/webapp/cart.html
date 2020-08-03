@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div th:if="${carts.empty}">
+				<td colspan="4"><span style="color:red">No category available</span></td>
+			</div>
+			<div th:each="cart,cartStatus : ${carts}">
+				<p th:text="${cartStatus.index+1}"></p>
+				<p th:text="${cart.productCat}"></p>
+				<p th:text="${cart.productCatDesc}"></p>
+				
+			</div>
+
+</body>
+</html>

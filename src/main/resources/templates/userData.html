@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h3>User Detials </h3>
+<pre>
+         UserName          <span th:text="${user.userName}"></span>
+                   
+         User EmailId         <span th:text="${user.emailId}"></span>
+                  
+         User Phone No.         <span th:text="${user.mobileNumber}"></span>
+   
+</pre>
+
+<pre>
+      <a href="/address">Update Address</a>
+
+      <a href="/email">Upadate Email Id</a>
+
+      <a href="/password">Update PassWord</a>
+
+      <a href="#">Orders</a>
+</pre>
+</body>
+</html>

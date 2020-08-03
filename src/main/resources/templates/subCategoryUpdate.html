@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<nav>
+<a href="/">home</a> <a href="/category">Categories</a> <a href="/subcategory">Sub-Categories</a>
+<a href="/formProduct">Products</a>
+</nav>
+	<h2>Category Master</h2>
+
+
+	<form th:action="@{/updateSubCat}" th:object="${subcategory}"
+		method="post">
+		<pre>
+		
+	 Product Sub-Category Id: <input type="text" th:field="*{productSubCatId}" readonly="readonly">	
+		
+	 Product Category:  <input type="text" th:field="*{productCategory}">
+                  
+	Product Category:   <input type="text" th:field="*{productSubCat}">
+	
+	Description :       <input type="text" th:field="*{productSubCatDesc}">
+	
+	
+	    <button>Update</button>
+	
+	</pre>
+	</form>
+
+	<table border="2">
+		<thead>
+			<tr>
+				<th>Sr.No</th>
+				<th>Product Sub-Category</th>
+				<th>Product Category</th>
+				<th>Product Description</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${subcats.empty}">
+				<td colspan="4"><span style="color: red">No category
+						available</span></td>
+			</tr>
+			<tr th:each="subcat,subcatStatus : ${subcats}">
+				<td th:text="${subcatStatus.index+1}"></td>
+				<td th:text="${subcat.productSubCat}"></td>
+				<td th:text="${subcat.productCategory}"></td>
+				<td th:text="${subcat.productSubCatDesc}"></td>
+				<td><a th:href="@{/updateSubCat/{id}(id=${subcat.productSubCatId})}">Update</a>
+					/ <a th:href="@{/deleteSubCat/{id}(id=${subcat.productSubCatId})}">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+
+</body>
+</html>

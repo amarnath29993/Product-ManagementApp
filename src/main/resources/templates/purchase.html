@@ -1,0 +1,17 @@
+<h1>thanks for your order</h1>
+<nav>
+<a href="/">home</a> 
+
+</nav>
+
+<div th:each="pro: ${pros}"> 
+<p th:text="${pro.productName}"></p>
+<p th:text="${pro.specification  }"></p>
+<p th:text="${pro.productCat   }"></p>
+<p th:text="${pro.nutritionInformation }"></p>
+<p th:text="${pro.price }"></p>
+
+ <p><img th:attr="src=@{${pro.strImage}}"></p> 
+ </div>
+ 
+ <h1  style="text-align:center">Visit Again</h1>

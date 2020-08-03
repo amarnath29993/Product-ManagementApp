@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<h1>Customer Register Form</h1>
+
+<div align="center">
+	<table border="1" >
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Mobile No</th>
+				<th>Email Id</th>
+				<th>Security Question</th>
+				<th>Status</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="customer:${customers}">
+				<td th:text="${customer.customerName}"></td>
+				<td th:text="${customer.mobileNumber}"></td>
+				<td th:text="${customer.emailId}"></td>
+				<td th:text="${customer.secAns}"></td>
+				<td th:text="${customer.status}"></td>
+				<td><a href="#">BLOCK</a></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</body>
+</html>

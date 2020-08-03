@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<nav>
+<a href="/">home</a> <a href="/category">Categories</a> <a href="/subcategory">Sub-Categories</a>
+<a href="/formProduct">Products</a>
+</nav>
+	<h2>Category Master</h2>
+
+
+	<form th:action="@{/category}" th:object="${category}" method="post">
+		<pre>
+	Product Category:   <input type="text" th:field="*{productCategory}">
+	
+	Description :       <input type="text" th:field="*{productCatDesc}">
+	
+	
+	    <button>Save</button>
+	
+	</pre>
+	</form>
+
+	<table border="2">
+		<thead>
+			<tr>
+				<th>Sr.No</th>
+				<th>Product Category</th>
+				<th>Product Description</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${cats.empty}">
+				<td colspan="4"><span style="color:red">No category available</span></td>
+			</tr>
+			<tr th:each="cat,catStatus : ${cats}">
+				<td th:text="${catStatus.index+1}"></td>
+				<td th:text="${cat.productCategory}"></td>
+				<td th:text="${cat.productCatDesc}"></td>
+				<td> <a th:href="@{/update/{id}(id=${cat.productCategoryId})}">Update</a> 
+				/ <a th:href="@{/delete/{id}(id=${cat.productCategoryId})}">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+
+</body>
+</html>
